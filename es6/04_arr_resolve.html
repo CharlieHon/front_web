@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组解构赋值</title>
+    <script type="text/javascript">
+        let arr = [1, 8, 9, 5];
+        console.log("arr=>", arr);  // 类型也会输出 arr=> Array(4)
+        // 数组结够(取出元素)
+        // 1. 传统方式
+        let x = arr[0], y = arr[1], z = arr[2];
+        console.log(x, y, z);   // 1 8 9
+        // 2. ES6风格
+        [a, b, c] = arr;
+        console.log("===============")
+        console.log(a, b, c);   // 1 8 9
+
+        let [num1, num2, num3] = [100, 200, 300];
+        console.log(num1, num2, num3);  // 100 200 300
+    </script>
+</head>
+<body>
+
+</body>
+</html>

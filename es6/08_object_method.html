@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象方法的简写形式</title>
+    <script type="text/javascript">
+        // 传统-对象方法定义
+        let monster = {
+            name: "红孩儿",
+            age: 100,
+            sayHi: function () {
+                console.log("信息：name=", this.name, " age=", this.age);
+            }
+        }
+        monster.f1 = function () {
+            console.log("动态地增加方法");
+        }
+        monster.sayHi();    // 信息：name= 红孩儿  age= 100
+        monster.f1();   // 动态地增加方法
+        // ES6-对象方法定义
+        let monster2 = {
+            name: "牛魔王",
+            age: 100,
+            sayHi() {
+                console.log("sayHi():", this.name, " ", this.age);
+            },
+            f1() {
+                console.log("哈哈");
+            }
+        }
+        monster2.sayHi();   // sayHi(): 牛魔王   100
+        monster2.f1();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

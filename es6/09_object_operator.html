@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象运算符的扩展</title>
+    <script type="text/javascript">
+        let cat = {name: "三花", age: 2};
+        // let cat2 = cat;             // 让cat2指向cat引用的内存空间，修改cat2会影响cat
+        // cat2.name = "肥肥";
+        // console.log("cat=", cat);   // age: 2   name: 肥肥
+        // console.log("cat2=", cat2); // age: 2   name: 肥肥
+        // 拷贝对象(深拷贝)
+        let cat2 = {...cat};    // 对象深拷贝，相当于重新开辟一份空间，空间中的内容与cat指向空间的内容一样
+        cat2.name = "墩墩";      // 修改cat2不会影响cat内容
+        console.log("cat=", cat);   // age: 2   name: 三花
+        console.log("cat2=", cat2); // age: 2   name: 墩墩
+
+        // 合并对象
+        let monster = {name: "白骨精", age: 102};
+        let car = {brand: "大奔", price: 3680000};
+        let monster_car = {...monster, ...car};     // 合并的对象是指向一个新开辟的内存空间
+        monster_car.brand = "迈巴赫";
+        console.log("car=", car);   // 大奔 3680000
+        console.log("monster_car:", monster_car);   // 白骨精 102 迈巴赫 368000
+    </script>
+</head>
+<body>
+
+</body>
+</html>

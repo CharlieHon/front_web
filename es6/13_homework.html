@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6课后作业</title>
+    <script type="text/javascript">
+        // 1. 有一个对象 let cat = {name: "jack", age: 10}; 要求使用模板字符串显示cat信息
+        let cat = {name: "jack", age: 10};
+        let cat_str = `名字：${cat.name}，年龄：${cat.age}`;
+        console.log("cat_str:", cat_str);   // 名字：jack，年龄：10
+
+        // 2. 分析下面代码输出内容
+        let dog = {name: "大黄", age: 10};
+        let {namex, age} = dog;         // 变量名和属性名不匹配，解构失败，结果是 undefined
+        console.log("namex:", namex, " age:", age); // undefined 10
+
+        // 3. 根据给出的数据，用ES6的方式构建对象，并提供方法，可以输出信息
+        let name = "周星驰";
+        let job = "演员";
+        let person = {
+            name,   // name: name,
+            job,
+            sayHi() {
+                console.log("姓名：", this.name, " 职业：", this.job)
+            }
+        }
+        person.sayHi();
+
+        // 4. 根据给出的数据，用ES6方式编写方法，使用对象解构的方式，得到 oper 和 arr
+        // 并根据 oper 的值(+, -, *, /)来计算结果
+        var cal = {
+            oper: "-",
+            arr: [1, 2, 3, 5]
+        }
+        let f1 = ({oper, arr}) => {
+            let res = 0;
+            if (arr == null || arr.length === 0) {
+                return null;
+            }
+            if (arr.length === 1) {
+                return res[0];
+            }
+            if ("+" === oper) {
+                res = arr[0];
+                for (let i = 0; i < arr.length; i++) {
+                    res += arr[i];
+                }
+            } else if ("-" === oper) {
+                res = arr[0];
+                for (let i = 0; i < arr.length; i++) {
+                    res -= arr[i];
+                }
+            } else if ("*" === oper) {
+                res = arr[0];
+                for (let i = 0; i < arr.length; i++) {
+                    res *= arr[i];
+                }
+            } else if ("/" === oper) {
+                res = arr[0];
+                for (let i = 0; i < arr.length; i++) {
+                    res /= arr[i];
+                }
+            } else {
+                console.log("输入格式有误！")
+            }
+            return res;
+        }
+        console.log("res=", f1(cal));
+
+        // 5. 调用f8函数，arr是数组，func传入箭头函数，可以计算arr的和，并写出调用方法
+        let f8 = (arr, func) => {
+            console.log("结果=", func(arr));
+        }
+        f8([1, 8, 9, 5], arr => {
+            let res = 0;
+            for (let i = 0; i < arr.length; i++) {
+                res += arr[i];
+            }
+            return res;
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

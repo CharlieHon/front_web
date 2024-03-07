@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>箭头函数的使用</title>
+    <script type="text/javascript">
+        // 传统函数
+        var f1 = function (n) {
+            return n * 2;
+        }
+        console.log("传统：", f1(2)); // 4
+
+        let f2 = (n) => {
+            return n * 2;
+        };
+        console.log("f2：", f2(3));  // 6
+
+        let f3 = n => n * 2;
+        console.log("f3:", f3(7));  // 14
+
+        // 函数也可以作为实参传给一个变量
+        function hi(f4) {
+            return f4(900);
+        }
+        console.log(hi(n => n + 100));  // 1000
+    </script>
+</head>
+<body>
+
+</body>
+</html>

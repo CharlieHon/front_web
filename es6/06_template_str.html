@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板字符串的使用</title>
+    <script type="text/javascript">
+        /* 模板字符串
+        1. 模板字符串使用反引号 `` 将字符串包裹
+        2. 可作为普通字符串
+        3. 可用来定义多行字符串，即可以将换行字符串原生输出
+        4. 字符串中可以插入变量和表达式，使用 ${}
+        5. 字符串中可以调用函数
+         */
+        // 1. 字符串，换行会原生输出
+        let str1 = `for(int i = 0; i < 10; i++){
+            System.out.println("i=" + i);
+        }`
+        console.log("str1=", str1);
+        // 2. 字符串中插入变量和表达式，变量名写在 ${} 中，${}中可以放入 JavaScript表达式
+        let name = "charlie";
+        // 1) 当解析 ${name}，就会找到最近的name遍历，进行替换
+        // 2) 然后可以得到最后解析的字符串
+        let str2 = `姓名：${name}`;
+        let str3 = `1+2=${1+2}`;
+        let n1 = 100;
+        let n2 = 200;
+        let str4 = `${n1}+${n2}=${n1+n2}`;    // 姓名：charlie
+        console.log("str2=", str2); //
+        console.log("str3=", str3); // 1+2=3
+        console.log("str4=", str4); // 100+200=300
+        // 3. 字符串中调用函数
+        function sayHi(content) {
+            return "hi-" + content;
+        }
+        let str5 = `satHi() 返回的结果是：${sayHi('jack')}`;
+        let str6 = `satHi() 返回的结果是：${sayHi(name)}`;
+        console.log("str5=", str5); // satHi() 返回的结果是：hi-jack
+        console.log("str6=", str6); // satHi() 返回的结果是：hi-charlie
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

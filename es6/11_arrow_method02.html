@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>箭头函数使用案例2</title>
+    <script type="text/javascript">
+        // 传统
+        var f1 = function (n, m) {
+            var res = 0;
+            for (var i = n; i <= m; i++) {
+                res += i;
+            }
+            return res;
+        }
+        console.log("传统=", f1(1, 10));  // 传统= 55
+        // ES6，箭头函数使用
+        let f2 = (n, m) => {
+            let res = 0;
+            for (let i = n; i <= m; i++) {
+                res += i;
+            }
+            return res;
+        }
+        console.log("ES6：", f2(1, 10));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

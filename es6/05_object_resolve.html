@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象解构</title>
+    <script type="text/javascript">
+        let monster = {name: '牛魔王', age: 800};
+        // 传统方式取出属性-对象名.属性名
+        console.log(monster.name, monster.age);
+
+        // ES6对象解构
+        // 1. 把monster对象的属性，赋值给 {name, age}
+        // 2. {name, age} 的取名 name和age 要和 monster对象的属性名保持一致
+        // 3. 使用{}，不能使用[]
+        // 4. name和age的顺序任意
+        let {name, age} = monster;
+        // let {name, age} = console.log(monster.name, monster.age);    // 这样写也可以
+        console.log("name=", name, " age=", age);   // name= 牛魔王  age= 800
+
+        // 可以在方法中使用对象解构，同样变量名要和对象属性名保持一致，否则值为undefined
+        function f1({name, age}) {
+            console.log("f1-name=", name, " f1-age=", age);
+        }
+        f1(monster);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
