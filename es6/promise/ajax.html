@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery-ajax多次请求</title>
+    <!--引入jquery-->
+    <script type="text/javascript" src="script/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        // jquery发送ajax请求
+        $.ajax({
+            url: "data/monster.json",
+            success (resultData) {  // 如果请求成功了，回调处理函数
+                console.log("第1次ajax请求，monster基本信息：", resultData);
+                // 发出第二次ajax请求
+                $.ajax({
+                    url: `data/monster_detail_${resultData.id}.json`,   // 模板字符串
+                    // 下面是es6对象的方法简写形式
+                    success(resultData) {
+                        console.log("第2次ajax请求，monster详细信息：", resultData);
+                    },
+                    error(err) {
+                        console.log("2_出现异常：", err);
+                    }
+                })
+            },
+            error (err) {
+                console.log("1_出现异常：", err);
+            }
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

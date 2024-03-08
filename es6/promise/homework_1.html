@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise课后作业-ajax</title>
+    <script type="text/javascript" src="script/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        // 使用ajax完成
+        $.ajax({
+            url: "data/student_100.json",
+            success(resultData) {
+                console.log("第1次ajax请求的数据：", resultData);
+                $.ajax({
+                    url: `data/class_${resultData.class_id}.json`,
+                    success(resultData) {
+                        console.log("第2次ajax请求的数据：", resultData);
+                        $.ajax({
+                            url: `data/school_${resultData.school_id}.json`,
+                            success(resultData) {
+                                console.log("第3次ajax请求的数据：", resultData);
+                            },
+                            error(err) {
+                                console.log("第3次ajax错误信息：", err);
+                            }
+                        })
+                    },
+                    error(err) {
+                        console.log("第2次ajax错误信息：", err);
+                    }
+                })
+            },
+            error(err) {
+                console.log("第1次ajax错误信息：", err);
+            }
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

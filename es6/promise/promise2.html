@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise代码重排</title>
+    <script type="text/javascript" src="script/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        /**
+         * 这里将重复的代码抽出来，编写一个方法get
+         * @param url ajax请求的资源
+         * @param data ajax请求携带的数据
+         * @returns {Promise<unknown>}
+         */
+        function get(url, data) {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: url,
+                    data: data,
+                    success(resultData) {
+                        resolve(resultData);
+                    },
+                    error(err) {
+                        reject(err);
+                    }
+                })
+            })
+        }
+
+        /* 需求：
+        1. 先获取 monster.json
+        2. 获取 monster_detail_1.json
+        3. 获取 monster_gf_2.json
+         */
+        get("data/monster.json")
+            .then((resultData) => {
+                // 第1次ajax请求成功后的处理代码
+                console.log("第1次ajax请求的数据：", resultData);
+                return get(`data/monster_detail_${resultData.id}.json`);
+            }).then((resultData) => {
+            console.log("第2次ajax请求的数据：", resultData);
+            return get(`data/monster_gf_${resultData.gfid}.json`);
+        }).then((resultData) => {
+            console.log("第3次ajax请求的数据：", resultData);
+            // 继续...
+        }).catch(err => {
+            console.log("promise请求异常：", err);
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>
