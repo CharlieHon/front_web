@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue事件绑定作业</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{message}}</h1>
+    <button v-on:click="add1">点击增加+1</button>
+    <!--1. cnt += 2 中的 cnt 是data数据池中的数据，因为已经挂载
+    2. 案例不难，重点是理解并掌握其机制-->
+    <button @click="cnt += 2;">点击增加+2</button>
+    <p>你的按钮点击了{{cnt}}次</p>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            message: "演示Vue事件绑定操作",
+            cnt: 0      // 点击的次数
+        },
+        methods: {
+            // 修改数据池data中的数据 cnt，因为data和methods都在同一个vue实例中，
+            // 因此可以通过使用 this.cnt 或 this._data.cnt 访问当数据池中的数据 cnt
+            add1() {
+                this._data.cnt += 1;
+            },
+            // add2方法中只有一句代码，可以简写到绑定方法处
+            // add2() {
+            //     this.cnt += 2;
+            // }
+        }
+    })
+</script>
+</body>
+</html>

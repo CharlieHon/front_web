@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-show的应用实例</title>
+</head>
+<body>
+<div id="app">
+    <!--这里可以看到checkbox的属性checked-->
+    <input type="checkbox" v-model="sel">是否同意条款【v-show实现】
+    <!--v-show：不管初始条件是什么，元素总是会被渲染，并且知识对css进行切换-->
+    <h1 v-show="sel">你同意条款</h1>
+    <h1 v-show="!sel">你不同意条款</h1>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            sel: false
+        }
+    })
+</script>
+</body>
+</html>

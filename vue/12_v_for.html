@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表渲染</title>
+</head>
+<body>
+<div id="app">
+    <h1>简单的列表渲染</h1>
+    <ul>
+        <!--1 2 3-->
+        <li v-for="i in 3">{{i}}</li>
+    </ul>
+    <h1>简单的列表渲染-带索引</h1>
+    <ul>
+        <!--0-1 1-2 2-3-->
+        <li v-for="(value, index) in 3">{{index}}-{{value}}</li>
+    </ul>
+    <h1>遍历数据列表</h1>
+    <table width="300px" border="2px">
+        <tr v-for="monster in monsters">
+            <td>{{monster.id}}</td>
+            <td>{{monster.name}}</td>
+            <td>{{monster.age}}</td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            items: [1, 8, 9, 5],
+            monsters: [
+                {id: 1, name: "牛魔王", age: 856},
+                {id: 2, name: "黄风怪", age: 766},
+                {id: 3, name: "青牛怪", age: 997}
+            ]
+        }
+    })
+</script>
+</body>
+</html>

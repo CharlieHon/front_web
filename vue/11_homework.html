@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染作业</title>
+</head>
+<body>
+<div id="app">
+    <h1>演示条件判断</h1>
+    输入成绩1~100：<input type="text" v-model="score" @blur="change"><br/>
+    <p>你当前成绩是{{score}}</p>
+    <p v-if="score >= 90">优秀</p>
+    <p v-else-if="score >= 70">良好</p>
+    <p v-else-if="score >= 60">及格</p>
+    <p v-else="score < 60">不及格</p>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            score: 0
+        },
+        methods: {
+            change() {
+                if (this.score > 100) {
+                    this.score = 100;
+                } else if (this.score < 0) {
+                    this.score = 0;
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

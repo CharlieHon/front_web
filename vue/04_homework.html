@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue数据双向绑定</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="img_src"/><br/><br/>
+    <img :src="img_src" :width="img_width"/>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript">
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            img_src: "ikun.png",
+            img_width: "250px"
+        }
+    })
+</script>
+</body>
+</html>

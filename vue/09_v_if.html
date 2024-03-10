@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-if的应用实例</title>
+</head>
+<body>
+<div id="app">
+    <!--这里可以看到checkbox的属性checked-->
+    <input type="checkbox" v-model="sel">是否同意条款【v-if实现】
+    <!--v-if/v-else 会根据返回的值，来决定是否动态地创建对应的组件，真正地创建和销毁子组件-->
+    <h1 v-if="sel">你同意条款</h1>
+    <h1 v-else>你不同意条款</h1>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            sel: false
+        }
+    })
+</script>
+</body>
+</html>

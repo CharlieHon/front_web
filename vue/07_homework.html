@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue事件绑定</title>
+</head>
+<body>
+<div id="app">
+    <h1>演示Vue事件绑定操作</h1>
+    书名：<input type="text" v-model="bookName">
+    <button @click="show">点击显示输入框内容</button>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            bookName: "倚天屠龙记"
+        },
+        methods: {
+            show() {
+                // 如果要访问当前数据池中的数据，需要带上this，否则报错未定义
+                alert("《" + this.bookName + "》");
+            }
+        }
+    })
+</script>
+</body>
+</html>

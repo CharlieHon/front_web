@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>事件绑定</title>
+</head>
+<body>
+<!--视图-->
+<div id="app">
+    <h1>{{message}}</h1>
+    <!--
+    1. v-on:click 表示给button元素绑定一个click事件
+    2. sayHi() 绑定的方法，在方法池 methods 中定义
+    3. 底层仍然是DOM编程
+    4. 如果方法不需要传递参数，可以省略 ()
+    5. v-on:click 可以简写为 @click ，但是需要浏览器支持
+    -->
+    <button v-on:click="sayHi()">点击输出1</button>
+    <button v-on:click="sayOK()">点击输出2</button>
+    <button v-on:click="sayOK">点击输出3</button>
+    <button @click="sayHi">点击输出4</button>
+</div>
+
+<!--引入vue.js-->
+<script src="vue.js"></script>
+<script>
+    // 这里创建的vue实例，可以不去接收，也可以接收方便调试
+    let vm = new Vue({
+        el: "#app",     // el就是element的简写
+        data: {
+            message: "Hello, Vue!",
+            name: "charlie"
+        },
+        // 1. 是一个methods属性，对应的值是对象 {}
+        // 2. 在 {} 中，可以写很多的方法，可以简单地理解为是一个方法池
+        methods: {
+            sayHi() {
+                console.log("hi, 银角大王");
+            },
+            sayOK() {
+                console.log("Hi, 金角大王");
+            }
+        }
+    })
+</script>
+</body>
+</html>
