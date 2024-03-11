@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue声明周期函数和钩子函数</title>
+</head>
+<body>
+<!--这里可以视为用户看到的页面，对应页面讲解的页面DOM-->
+<div id="app">
+    <span id="num">{{num}}</span>
+    <button @click="num++">点赞！</button>
+    <h2>{{name}}，有{{num}}次点赞</h2>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: { // 数据池
+            name: "charlie",
+            num: 0
+        },
+        methods: {  // 方法池
+            show() {
+                return this.name;
+            },
+            add() {
+                this.num++;
+            }
+        },
+        beforeCreate() {    // 生命周期函数-创建Vue实例前
+            console.log("========beforeCreate========");
+            // undefined   undefined
+            console.log("数据模型/数据池的数据是否加载/使用？[no]", this.name, " ", this.num);
+            // [Vue warn]: Error in beforeCreate hook: "TypeError: this.show is not a function"
+            // console.log("自定义方法是否加载/使用？[no]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // {{num}}
+            console.log("用户页面DOM是否被渲染？[no]", document.getElementById("num").innerText);
+        },
+        created() {  // 生命周期函数-创建Vue实例
+            console.log("========created========");
+            // charlie   0
+            console.log("数据模型/数据池的数据是否加载/使用？[yes]", this.name, " ", this.num);
+            // charlie
+            console.log("自定义方法是否加载/使用？[yes]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // {{num}}
+            console.log("用户页面DOM是否被渲染？[no]", document.getElementById("num").innerText);
+            // 可以发出Ajax请求
+            // 接收返回的数据
+            // 再次去更新data数据池的数据
+            // 编译内存模板结构
+            // ...
+        },
+        beforeMount() { // 生命周期函数-挂载前
+            console.log("========beforeMount========");
+            // charlie   0
+            console.log("数据模型/数据池的数据是否加载/使用？[yes]", this.name, " ", this.num);
+            // charlie
+            console.log("自定义方法是否加载/使用？[yes]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // {{num}}
+            console.log("用户页面DOM是否被渲染？[no]", document.getElementById("num").innerText);
+        },
+        mounted() { // 生命周期函数-挂载后
+            console.log("========mounted========");
+            // charlie   0
+            console.log("数据模型/数据池的数据是否加载/使用？[yes]", this.name, " ", this.num);
+            // charlie
+            console.log("自定义方法是否加载/使用？[yes]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // 0
+            console.log("用户页面DOM是否被渲染？[yes]", document.getElementById("num").innerText);
+        },
+        beforeUpdate() {    // 生命周期函数-数据池数据更新前
+            console.log("========beforeUpdate========");
+            // charlie   1  数据池中的数据已经发生改变！
+            console.log("数据模型/数据池的数据是否加载/使用？[yes]", this.name, " ", this.num);
+            // charlie
+            console.log("自定义方法是否加载/使用？[yes]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // 0    但是用户页面DOM中的数据还没有更新！
+            console.log("用户页面DOM是否被更新？[no]", document.getElementById("num").innerText);
+            // 验证数据===>修正
+            if (this.num < 10) {    // 示意
+                this.num = 6;
+            }
+        },
+        updated() { // 生命周期函数-数据池数据更新后
+            console.log("========updated========");
+            // charlie   1  数据池中的数据已经发生改变！
+            console.log("数据模型/数据池的数据是否加载/使用？[yes]", this.name, " ", this.num);
+            // charlie
+            console.log("自定义方法是否加载/使用？[yes]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // 1    内存中的数据更新到用户页面DOM
+            console.log("用户页面DOM是否被更新？[yes]", document.getElementById("num").innerText);
+        }
+    })
+</script>
+</body>
+</html>

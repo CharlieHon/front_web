@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件化编程</title>
+</head>
+<body>
+<div id="app">
+    <!--非组件化方式-普通方式-->
+    <button @click="click">点击按钮{{i}}次【非组件化方式】</button><br/><br/>
+    <!--需求是，有多个按钮，都需要进行点击统计-->
+    <button @click="click2">点击按钮{{j}}次【非组件化方式】</button><br/>
+    <!--1. 这俩按钮完成的功能其实是一样的，但是目前都重写了一次，复用性差
+    2. 点击各个按钮的业务都是对次数+1，业务处理类似，但是也都重写了方法，复用性差
+    3. 问题是在于直接复制会共享数据和方法，并非所需-->
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            i: 0,
+            j: 0
+        },
+        methods: {
+            click() {
+                this.i++;
+            },
+            click2() {
+                this.j++;
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -380,6 +380,11 @@
 
 ## 列表渲染：v-for
 
+1. 对数组进行遍历
+   - ![img_11.png](img_11.png)
+2. 用`v-for`来遍历一个对象的property
+   - ![img_12.png](img_12.png)
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -468,6 +473,324 @@
                 {id: 3, name: "jerry", age: 25, score: 56},
                 {id: 3, name: "leon", age: 20, score: 92}
             ]
+        }
+    })
+</script>
+</body>
+</html>
+```
+
+## 组件化编程
+
+1. ![img_13.png](img_13.png)
+2. 组件(Component)是Vue.js最强大的功能之一，可以提高复用性
+3. 组件也是一个Vue实例，也包括：data, methods, 生命周期函数等
+4. **组件渲染需要html模板**，所以增加了 `template` 属性，值就是HTML模板
+5. 对于全局组件，任何Vue实例都可以直接在HTML中通过组件名称来使用组件
+6. **`data`是一个函数，不再是一个对象，这样每次引用组件都是独立的对象/数据**
+
+- ![img_14.png](img_14.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件化编程</title>
+</head>
+<body>
+<div id="app">
+    <!--非组件化方式-普通方式-->
+    <button @click="click">点击按钮{{i}}次【非组件化方式】</button><br/><br/>
+    <!--需求是，有多个按钮，都需要进行点击统计-->
+    <button @click="click2">点击按钮{{j}}次【非组件化方式】</button><br/>
+    <!--1. 这俩按钮完成的功能其实是一样的，但是目前都重写了一次，复用性差
+    2. 点击各个按钮的业务都是对次数+1，业务处理类似，但是也都重写了方法，复用性差
+    3. 问题是在于直接复制会共享数据和方法，并非所需-->
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            i: 0,
+            j: 0
+        },
+        methods: {
+            click() {
+                this.i++;
+            },
+            click2() {
+                this.j++;
+            }
+        }
+    })
+</script>
+</body>
+</html>
+```
+
+- ![img_15.png](img_15.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件化编程-全局组件</title>
+</head>
+<body>
+<div id="app">
+    <h1>组件化编程-全局组件</h1>
+    <!--使用全局组件-->
+    <counter></counter><br/><br/>
+    <counter></counter><br/><br/>
+</div>
+
+<div id="app2">
+    <h1>组件化编程-全局组件2</h1>
+    <!--使用全局组件-->
+    <counter></counter><br/><br/>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    // 1. 定义一个全局组件，名称为counter
+    // 2. {} 表示组件相关内容
+    // 3. template指定该组件的界面，因为会引用到数据池的数据，所以需要是模板字符串
+    // 4. 说明：要把组件视为一个Vue实例，也有自己的数据池和methods
+    // 5. 对于组件，数据池的数据是使用方法/函数返回【为了保证每个组件的数据是独立的】！因为原来的方式数据是共享的
+    // 6. 这时就达到了界面通过template实现共享，业务处理也复用
+    // 7. 全局组件是属于所有的Vue实例，因此可以在所有的vue实例中使用，有点类似于Vue类的静态成员
+    Vue.component("counter", {
+        template: `<button v-on:click="click">点击次数={{count}}次【全局组件化】</button>`,
+        data() {    // 这里需要注意，和原来的方式不一样！！！
+            return {
+                count: 10
+            }
+        },
+        // [Vue warn]: The "data" option should be a function that returns a pre-instance value in component definitions.
+        // data: {
+        //     count: 10
+        // },
+        methods: {
+            click() {
+                this.count++;
+            }
+        }
+    });
+
+    // 创建Vue实例，必须有
+    let vm = new Vue({
+        el: "#app",
+    })
+
+    // 所有的Vue实例都可以使用到全局组件
+    let vm2 = new Vue({
+        el: "#app2"
+    })
+</script>
+</body>
+</html>
+```
+
+- ![img_16.png](img_16.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件化编程-局部组件</title>
+</head>
+<body>
+<div id="app">
+    <h1>组件化编程-局部组件</h1>
+    <!--使用局部组件，该组件是从挂载到app的vue中获取的-->
+    <my_counter></my_counter><br/><br/>
+    <my_counter></my_counter><br/><br/>
+    <my_counter></my_counter><br/><br/>
+</div>
+
+<div id="app2">
+    <h1>组件化编程-局部组件2</h1>
+    <!--不引入局部组件的无法使用，[Vue warn]: Unknown custom element: <my_counter>-->
+    <my_counter></my_counter><br/><br/>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    // 定义一个组件，组件的名称为 buttonCounter
+    // 1. 可以把常用的组件，定义在 common.js 文件中
+    // 2. 某个页面需要使用，直接 import
+    const buttonCounter = {
+        template: `<button v-on:click="click">点击次数={{count}}次【局部组件化】</button>`,
+        data() {    // 这里需要注意，和原来的方式不一样！！！
+            return {
+                count: 10
+            }
+        },
+        methods: {
+            click() {
+                this.count++;
+            }
+        }
+    }
+
+    // 创建Vue实例，必须有
+    let vm = new Vue({
+        el: "#app",
+        components: {    // 引入某个组件，此时 my_counter 就是一个组件，是一个局部组件，使用范围就在当前Vue
+            "my_counter": buttonCounter
+        }
+    })
+
+    let vm2 = new Vue({
+        el: "#app2",
+        // 在该vue实例中，必须引入局部组件才能使用
+        // components: {
+        //     "my_counter": buttonCounter
+        // }
+    })
+</script>
+</body>
+</html>
+```
+
+## 生命周期和监听函数(钩子(hook)函数)
+
+1. Vue实例有一个完整的生命周期，即从**开始创建、初始化数据、编译模板、挂载DOM、渲染-更新-渲染，卸载等一系列过程**，称之为Vue实例的生命周期。
+2. 钩子函数(监听函数)：Vue实例在完整的生命周期过程中(比如设置数据监听、编译模板、将实例挂载到DOM、数据变化时更新DOM等)会运行的函数，叫作生命周期钩子的函数
+3. **钩子函数的作用就是在某个阶段，给程序员一个做某些处理的机会**
+
+| ![生命周期图示](lifecycle.png) |
+|--------------------------|
+
+### 生命周期解读
+
+| 生命周期                                             | 含义                                                                              |
+|--------------------------------------------------|----------------------------------------------------------------------|
+| `new Vue()`                                      | new了一个Vue实例对象，此时就会进入组件的创建过程                                                     |
+| `init Events & Lifecycle`                        | 初始化组件的事件和生命周期函数                                                                 |
+| **`beforeCreate`**                               | 组件创建止遇到的第一个生命周期函数，这个阶段data和methods以及dom结果都未被初始化，<br/>即获取不到data值，不能调用methods中的函数 |
+| `init injections & reactivity`                   | 正在初始化data和methods中的方法                                                           |
+| **`created`**                                    | data和methods中的方法已初始化结束，可以访问，但是dom结构未初始化，页面未渲染                                   |
+| 编译模板结构(在内存)                                      |                                                                                 |
+| **`beforeMount`**                                | 模板在内存中编译完成，此时内存中的模板结构还未渲染至页面上，看不到真实的数据                                          |
+| `create vm.$el and replace 'el' with it`         | 这一步把内存中渲染号的模板结构替换至真是的dom结构也就是页面上                                                |
+| **`mounted`**                                    | 此时页面渲染好，用户看到的是真实的页面数据，生命周期创建完毕，进入到了运行中的阶段                                       |
+| `生命周期运行中`                                        |                                                                                 |
+| **`beforeUpdate`**                                   | 当执行此函数时，数据池中的数据是新的，但是页面还是旧的                                                     |
+| `Virtual DOM re-render and patch`                | 根据最新的data数据，重新渲染内存中的模板结构，并把渲染好的模板结果，替换至页面上                                      |
+| **`updated`**                                        | 页面已经完成了更新，此时data数据和页面的数据都是新的                                                    |
+| ![img_17.png](img_17.png)                        | ![img_18.png](img_18.png)                                                                                |
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue声明周期函数和钩子函数</title>
+</head>
+<body>
+<!--这里可以视为用户看到的页面，对应页面讲解的页面DOM-->
+<div id="app">
+    <span id="num">{{num}}</span>
+    <button @click="num++">点赞！</button>
+    <h2>{{name}}，有{{num}}次点赞</h2>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: { // 数据池
+            name: "charlie",
+            num: 0
+        },
+        methods: {  // 方法池
+            show() {
+                return this.name;
+            },
+            add() {
+                this.num++;
+            }
+        },
+        beforeCreate() {    // 生命周期函数-创建Vue实例前
+            console.log("========beforeCreate========");
+            // undefined   undefined
+            console.log("数据模型/数据池的数据是否加载/使用？[no]", this.name, " ", this.num);
+            // [Vue warn]: Error in beforeCreate hook: "TypeError: this.show is not a function"
+            // console.log("自定义方法是否加载/使用？[no]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // {{num}}
+            console.log("用户页面DOM是否被渲染？[no]", document.getElementById("num").innerText);
+        },
+        created() {  // 生命周期函数-创建Vue实例
+            console.log("========created========");
+            // charlie   0
+            console.log("数据模型/数据池的数据是否加载/使用？[yes]", this.name, " ", this.num);
+            // charlie
+            console.log("自定义方法是否加载/使用？[yes]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // {{num}}
+            console.log("用户页面DOM是否被渲染？[no]", document.getElementById("num").innerText);
+            // 可以发出Ajax请求
+            // 接收返回的数据
+            // 再次去更新data数据池的数据
+            // 编译内存模板结构
+            // ...
+        },
+        beforeMount() { // 生命周期函数-挂载前
+            console.log("========beforeMount========");
+            // charlie   0
+            console.log("数据模型/数据池的数据是否加载/使用？[yes]", this.name, " ", this.num);
+            // charlie
+            console.log("自定义方法是否加载/使用？[yes]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // {{num}}
+            console.log("用户页面DOM是否被渲染？[no]", document.getElementById("num").innerText);
+        },
+        mounted() { // 生命周期函数-挂载后
+            console.log("========mounted========");
+            // charlie   0
+            console.log("数据模型/数据池的数据是否加载/使用？[yes]", this.name, " ", this.num);
+            // charlie
+            console.log("自定义方法是否加载/使用？[yes]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // 0
+            console.log("用户页面DOM是否被渲染？[yes]", document.getElementById("num").innerText);
+        },
+        beforeUpdate() {    // 生命周期函数-数据池数据更新前
+            console.log("========beforeUpdate========");
+            // charlie   1  数据池中的数据已经发生改变！
+            console.log("数据模型/数据池的数据是否加载/使用？[yes]", this.name, " ", this.num);
+            // charlie
+            console.log("自定义方法是否加载/使用？[yes]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // 0    但是用户页面DOM中的数据还没有更新！
+            console.log("用户页面DOM是否被更新？[no]", document.getElementById("num").innerText);
+            // 验证数据===>修正
+            if (this.num < 10) {    // 示意
+                this.num = 6;
+            }
+        },
+        updated() { // 生命周期函数-数据池数据更新后
+            console.log("========updated========");
+            // charlie   1  数据池中的数据已经发生改变！
+            console.log("数据模型/数据池的数据是否加载/使用？[yes]", this.name, " ", this.num);
+            // charlie
+            console.log("自定义方法是否加载/使用？[yes]", this.show());
+            // <span id="num">{{num}}</span>
+            console.log("用户页面DOM是否加载/使用？[yes]", document.getElementById("num"));
+            // 1    内存中的数据更新到用户页面DOM
+            console.log("用户页面DOM是否被更新？[yes]", document.getElementById("num").innerText);
         }
     })
 </script>

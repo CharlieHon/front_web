@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件化编程-全局组件</title>
+</head>
+<body>
+<div id="app">
+    <h1>组件化编程-全局组件</h1>
+    <!--使用全局组件-->
+    <counter></counter><br/><br/>
+    <counter></counter><br/><br/>
+</div>
+
+<div id="app2">
+    <h1>组件化编程-全局组件2</h1>
+    <!--使用全局组件-->
+    <counter></counter><br/><br/>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script>
+    // 1. 定义一个全局组件，名称为counter
+    // 2. {} 表示组件相关内容
+    // 3. template指定该组件的界面，因为会引用到数据池的数据，所以需要是模板字符串
+    // 4. 说明：要把组件视为一个Vue实例，也有自己的数据池和methods
+    // 5. 对于组件，数据池的数据是使用方法/函数返回【为了保证每个组件的数据是独立的】！因为原来的方式数据是共享的
+    // 6. 这时就达到了界面通过template实现共享，业务处理也复用
+    // 7. 全局组件是属于所有的Vue实例，因此可以在所有的vue实例中使用，有点类似于Vue类的静态成员
+    Vue.component("counter", {
+        template: `<button v-on:click="click">点击次数={{count}}次【全局组件化】</button>`,
+        data() {    // 这里需要注意，和原来的方式不一样！！！
+            return {
+                count: 10
+            }
+        },
+        // [Vue warn]: The "data" option should be a function that returns a pre-instance value in component definitions.
+        // data: {
+        //     count: 10
+        // },
+        methods: {
+            click() {
+                this.count++;
+            }
+        }
+    });
+
+    // 创建Vue实例，必须有
+    let vm = new Vue({
+        el: "#app",
+    })
+
+    // 所有的Vue实例都可以使用到全局组件
+    let vm2 = new Vue({
+        el: "#app2"
+    })
+</script>
+</body>
+</html>
