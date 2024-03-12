@@ -8,7 +8,7 @@
 
 ## MVVM
 
-- ![img.png](img.png)
+- ![img.png](imgs/img.png)
 - M(Model)：模型，包括数据和一些基本操作
 - V(View视图)：页面渲染结果
 - VM(View-Model)，模型与视图间的**双向操作**(无需开发人员干涉)
@@ -19,7 +19,7 @@
 
 ## 快速入门
 
-- ![Vue数据绑定机制/MVVM](img_1.png)
+- ![Vue数据绑定机制/MVVM](imgs/img_1.png)
 
 ```html
 <!DOCTYPE html>
@@ -118,7 +118,7 @@
 ## 数据双向绑定
 
 - `v-model`可以完成**双向数据绑定**
-- ![img_2.png](img_2.png)
+- ![img_2.png](imgs/img_2.png)
 - [练习题](04_homework.html)
 
 ```html
@@ -163,7 +163,7 @@
 1. 使用 `v-on` 进行事件处理，比如：`v-on:click`表示处理鼠标点击事件
 2. 事件调用的方法定义在vue对象声明的 `methods` 节点中
 3. `v-on`：事件名，可以绑定指定事件
-   - ![img_3.png](img_3.png)
+   - ![img_3.png](imgs/img_3.png)
 
 ```html
 <!DOCTYPE html>
@@ -218,7 +218,7 @@
 1. 如果方法没有参数，可以省略 `()` ，需要浏览器支持
 2. `v-on`指令的简写形式 `@`，需要浏览器支持
 3. 可以通过元素查看可以绑定的事件
-   - ![img_4.png](img_4.png)
+   - ![img_4.png](imgs/img_4.png)
 4. [课后作业：点击增加cnt值](06_homework.html)
 5. [课后作业：提示输入框内容](07_homework.html)
 
@@ -243,7 +243,7 @@
 | **v-model的修饰符**                   |                                         |
 | `<input v-model.trim="msg">`      | 自动过滤用户输入的首尾空格                           |
 
-- ![img_5.png](img_5.png)
+- ![img_5.png](imgs/img_5.png)
 
 ```html
 <!DOCTYPE html>
@@ -305,10 +305,10 @@
 ## 条件渲染/控制：v-if/v-show
 
 1. `v-if`指令用于条件性地渲染一块内容。这块内容只会在指令地表达式返回truthy值地时候被渲染。
-   - ![img_6.png](img_6.png)
+   - ![img_6.png](imgs/img_6.png)
 2. `v-show`用法大致一样，不同的是带有 `v-show` 的元素始终会被渲染并保留在DOM中。`v-show`只是简单的切换元素的CSS property(`display`)
 
-| ![img_8.png](img_8.png) | ![img_7.png](img_7.png) |
+| ![img_8.png](imgs/img_8.png) | ![img_7.png](imgs/img_7.png) |
 |-------------------------|-------------------------|
 
 > 在Vue.js中，`v-model`指令用于在表单输入元素上创建双向数据绑定。对于不同类型的表单输入数据，绑定的是不同的属性
@@ -376,14 +376,14 @@
 1. `v-if`会确保在切换状态过程中，条件块内的事件监听器和子组件的销毁和重建，即**v-if值为false的元素不会被渲染**
 2. `v-show`机制相对简单，不管初始条件是什么，元素总是会被渲染，并且**只是对CSS的属性进行切换**
 3. [课后作业：根据输入的分数输出对应的级别](11_homework.html)
-   - ![img_9.png](img_9.png)
+   - ![img_9.png](imgs/img_9.png)
 
 ## 列表渲染：v-for
 
 1. 对数组进行遍历
-   - ![img_11.png](img_11.png)
+   - ![img_11.png](imgs/img_11.png)
 2. 用`v-for`来遍历一个对象的property
-   - ![img_12.png](img_12.png)
+   - ![img_12.png](imgs/img_12.png)
 
 ```html
 <!DOCTYPE html>
@@ -432,7 +432,7 @@
 </html>
 ```
 
-- ![img_10.png](img_10.png)
+- ![img_10.png](imgs/img_10.png)
 
 ```html
 <!DOCTYPE html>
@@ -482,14 +482,14 @@
 
 ## 组件化编程
 
-1. ![img_13.png](img_13.png)
+1. ![img_13.png](imgs/img_13.png)
 2. 组件(Component)是Vue.js最强大的功能之一，可以提高复用性
 3. 组件也是一个Vue实例，也包括：data, methods, 生命周期函数等
 4. **组件渲染需要html模板**，所以增加了 `template` 属性，值就是HTML模板
 5. 对于全局组件，任何Vue实例都可以直接在HTML中通过组件名称来使用组件
 6. **`data`是一个函数，不再是一个对象，这样每次引用组件都是独立的对象/数据**
 
-- ![img_14.png](img_14.png)
+- ![img_14.png](imgs/img_14.png)
 
 ```html
 <!DOCTYPE html>
@@ -531,7 +531,7 @@
 </html>
 ```
 
-- ![img_15.png](img_15.png)
+- ![img_15.png](imgs/img_15.png)
 
 ```html
 <!DOCTYPE html>
@@ -595,7 +595,7 @@
 </html>
 ```
 
-- ![img_16.png](img_16.png)
+- ![img_16.png](imgs/img_16.png)
 
 ```html
 <!DOCTYPE html>
@@ -664,7 +664,7 @@
 2. 钩子函数(监听函数)：Vue实例在完整的生命周期过程中(比如设置数据监听、编译模板、将实例挂载到DOM、数据变化时更新DOM等)会运行的函数，叫作生命周期钩子的函数
 3. **钩子函数的作用就是在某个阶段，给程序员一个做某些处理的机会**
 
-| ![生命周期图示](lifecycle.png) |
+| ![生命周期图示](imgs/lifecycle.png) |
 |--------------------------|
 
 ### 生命周期解读
@@ -684,7 +684,7 @@
 | **`beforeUpdate`**                                   | 当执行此函数时，数据池中的数据是新的，但是页面还是旧的                                                     |
 | `Virtual DOM re-render and patch`                | 根据最新的data数据，重新渲染内存中的模板结构，并把渲染好的模板结果，替换至页面上                                      |
 | **`updated`**                                        | 页面已经完成了更新，此时data数据和页面的数据都是新的                                                    |
-| ![img_17.png](img_17.png)                        | ![img_18.png](img_18.png)                                                                                |
+| ![img_17.png](imgs/img_17.png)                        | ![img_18.png](imgs/img_18.png)                                                                                |
 
 ```html
 <!DOCTYPE html>
