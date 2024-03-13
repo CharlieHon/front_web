@@ -10,7 +10,7 @@
 ### es5
 
 CommonJS使用 `module.exports={}`或`exports={}`导出模块，使用 `let/const 名称=require("xx.js")`导入模块
-- ![img.png](img.png)
+- ![img.png](imgs/img.png)
 
 ```javascript
 // module/es5/function.js: 定义对象，变量，函数
@@ -77,7 +77,7 @@ console.log(sub(6, 8));
 
 ### es6
 
-- ![img_1.png](img_1.png)
+- ![img_1.png](imgs/img_1.png)
 
 ### 注意事项和细节
 
@@ -86,13 +86,13 @@ console.log(sub(6, 8));
 3. 没有导出的不能使用
 4. es6导出方式较多，**不同的导出方式对导入方式也有一定影响**
 5. 导出方式1：**批量导出**
-   - ![img_2.png](img_2.png)
+   - ![img_2.png](imgs/img_2.png)
 6. 导出方式2：**定义时导出**
-   - ![img_3.png](img_3.png)
+   - ![img_3.png](imgs/img_3.png)
 7. 导出方式3：**默认导出**，一次导出多个，导入时，导入变量名可以自己指定
-   - ![img_4.png](img_4.png)
+   - ![img_4.png](imgs/img_4.png)
 8. 导出方式4：
-   - ![img_5.png](img_5.png)
+   - ![img_5.png](imgs/img_5.png)
 9. 导出方式5：
-   - ![img_6.png](img_6.png)
+   - ![img_6.png](imgs/img_6.png)
 10. 重点掌握前三种即可

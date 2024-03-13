@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     handleChange(value) {
-      // 这里可以获取到用户增加/减少的只
+      // 这里可以获取到用户增加/减少的值
       console.log(value);
     }
   }
