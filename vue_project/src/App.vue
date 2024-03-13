@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <!--<img src="./assets/logo.png">-->
     <!--将路由后的页面/视图，引入导这里-->
     <router-view/>
   </div>

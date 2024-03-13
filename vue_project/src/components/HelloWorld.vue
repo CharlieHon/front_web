@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <img src="@/assets/logo.png"/>
     <h1>{{msg}}</h1>
     <h2>网站的地址</h2>
     <a href="http://www.baidu.com">点击进入百度</a>
